@@ -32,19 +32,14 @@ class LindaAPI (dapp.API):
 
 		super (LindaAPI, self).__init__(core, dht, rpcmethods, errors)
 
-	def method_rd (self, key):
-		pass
+	def method_rd (self, q):
+		t = self.core.read (q)
+		return t
 
-	def method_in (self, key):
-		v = self.core.get (key)
-		if v == None:
-			return self.createErrorResponse ('KEY_IS_NOT_SET')
-		else:
-			return v
+	def method_in (self, q):
+		msg = message.LindaMessage.insert (t)
+		return self.createTransactionResponse (msg)
 
-	def method_out (self, key, value):
-		if self.core.get (key) != None:
-			return self.createErrorResponse ('KEY_ALREADY_SET')
-
-		msg = message.LindaMessage.set (key, value)
+	def method_out (self, t):
+		msg = message.LindaMessage.output (t)
 		return self.createTransactionResponse (msg)

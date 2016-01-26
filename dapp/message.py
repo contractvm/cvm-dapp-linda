@@ -6,23 +6,27 @@ from contractvmd.chain import message
 from . import proto
 
 class LindaMessage (message.Message):
-	def set (key, value):
+	def insert (q):
 		m = LindaMessage ()
-		m.Key = key
-		m.Value = value
+		m.Query = q
 		m.DappCode = proto.LindaProto.DAPP_CODE
-		m.Method = proto.LindaProto.METHOD_SET
+		m.Method = proto.LindaProto.METHOD_IN
+		return m
+
+	def output (t):
+		m = LindaMessage ()
+		m.Tuple = t
+		m.DappCode = proto.LindaProto.DAPP_CODE
+		m.Method = proto.LindaProto.METHOD_OUT
 		return m
 
 	def toJSON (self):
 		data = super (LindaMessage, self).toJSON ()
 
 		if self.Method == proto.LindaProto.METHOD_IN:
-			#data['key'] = self.Key
-			#data['value'] = self.Value
-			pass
+			data['query'] = self.Query
 		elif self.Method == proto.LindaProto.METHOD_OUT:
-			pass
+			data['tuple'] = self.Tuple
 		else:
 			return None
 

@@ -11,16 +11,22 @@ class LindaCore (dapp.Core):
 	def __init__ (self, chain, database):
 		super (LindaCore, self).__init__ (chain, database)
 
-	def in (self, key, value):
+	def _query (self, q):
+		return None
+
+	def insert (self, q):
+		r = self._query (q)
+		# delete r
 		if self.database.exists (key):
 			return
 		else:
 			self.database.set (key, value)
 
-	def rd (self, query):
-		pass
+	def read (self, q):
+		r = self._query (q)
+		return r
 
-	def out (self, key):
+	def output (self, tp):
 		if not self.database.exists (key):
 			return None
 		else:
