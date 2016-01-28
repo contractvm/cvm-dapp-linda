@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 from libcontractvm import Wallet, WalletExplorer, ConsensusManager
 from linda import LindaManager
-import sys
+import sys, time
 
 consMan = ConsensusManager.ConsensusManager ()
 consMan.bootstrap ("http://127.0.0.1:8181")
@@ -25,4 +25,4 @@ if __name__ == "__main__":
 		while True:
 			print (linda.read ("(%s, %d, %d)"))
 			print (linda.read ("('hellotupla', %f, %s, 12)"))
-			consMan.waitBlock ()
+			time.sleep (10)

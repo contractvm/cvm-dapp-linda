@@ -1,7 +1,8 @@
+from ast import literal_eval
 
 class Core:
 	def _match (self, t, q):
-		q = q.replace ('(', '').replace (')', '').split (',')
+		q = q.replace ('(', '').replace (')', '').replace (', ', ',').split (',')
 		# Length check
 		if len (q) != len (t):
 			return False
@@ -27,7 +28,7 @@ class Core:
 
 			# Value match
 			else:
-				if type(qt) == type (t[i]) and eval (qt) == t[i]:
+				if type(eval (qt)) == type (t[i]) and eval (qt) == t[i]:
 					continue
 				else:
 					return False
@@ -35,6 +36,9 @@ class Core:
 		return True
 
 a = Core ()
+
+assert (a._match (literal_eval ("('hellotupla', 12.0, 'hola', 12)"), "('hellotupla', %f, %s, 12)") == True)
+assert (a._match (literal_eval ("('hellotupla', 12, 34)"), "(%s, %d, %d)") == True)
 assert (a._match (('ciao',12), '("ciao",)') == True)
 assert (a._match (('ciao',12), '("ciao",%d)') == True)
 assert (a._match (('ciao',12), '("ciao",%s)') == False)

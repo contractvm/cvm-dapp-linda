@@ -34,7 +34,9 @@ class LindaAPI (dapp.API):
 
 	def method_rd (self, q):
 		t = self.core.read (q)
-		return ''
+		if t == None:
+			return ''
+		return t
 
 	def method_in (self, q):
 		msg = message.LindaMessage.insert (q)

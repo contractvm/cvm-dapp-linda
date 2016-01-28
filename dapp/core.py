@@ -19,7 +19,7 @@ class LindaCore (dapp.Core):
 	# (,%f,)		Match a tuple with 3 elements where the second element is a float (or %s: string, %d: int)
 	# ('ciao',,)	Match a tuple with 3 elements where the first element is the string 'ciao'
 	def _match (self, t, q):
-		q = q.replace ('(', '').replace (')', '').split (',')
+		q = q.replace ('(', '').replace (')', '').replace (', ', ',').split (',')
 		# Length check
 		if len (q) != len (t):
 			return False
@@ -45,7 +45,7 @@ class LindaCore (dapp.Core):
 
 			# Value match
 			else:
-				if type(qt) == type (t[i]) and eval (qt) == t[i]:
+				if type(eval (qt)) == type (t[i]) and eval (qt) == t[i]:
 					continue
 				else:
 					return False
