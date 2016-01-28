@@ -17,9 +17,9 @@ class linda (dapp.Dapp):
 
 	def handleMessage (self, m):
 		if m.Method == proto.LindaProto.METHOD_IN:
-			logger.pluginfo ('Found new message %s: set %s', m.Hash, m.Data['key'])
+			logger.pluginfo ('Found new message %s: IN %s', m.Hash, m.Data['query'])
 			self.core.insert (m.Data['query'])
 
 		elif m.Method == proto.LindaProto.METHOD_OUT:
-			logger.pluginfo ('Found new message %s: set %s', m.Hash, m.Data['key'])
+			logger.pluginfo ('Found new message %s: OUT %s', m.Hash, m.Data['tuple'])
 			self.core.output (m.Data['tuple'])

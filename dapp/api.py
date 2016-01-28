@@ -14,18 +14,18 @@ class LindaAPI (dapp.API):
 		rpcmethods = {}
 
 		rpcmethods["in"] = {
-			"call": self.method_get,
-			"help": {"args": ["key"], "return": {}}
+			"call": self.method_in,
+			"help": {"args": ["query"], "return": {}}
 		}
 
 		rpcmethods["out"] = {
-			"call": self.method_set,
-			"help": {"args": ["key", "value"], "return": {}}
+			"call": self.method_out,
+			"help": {"args": ["tuple"], "return": {}}
 		}
 
 		rpcmethods["rd"] = {
-			"call": self.method_set,
-			"help": {"args": ["key", "value"], "return": {}}
+			"call": self.method_rd,
+			"help": {"args": ["query"], "return": {}}
 		}
 
 		errors = { }
@@ -34,10 +34,10 @@ class LindaAPI (dapp.API):
 
 	def method_rd (self, q):
 		t = self.core.read (q)
-		return t
+		return ''
 
 	def method_in (self, q):
-		msg = message.LindaMessage.insert (t)
+		msg = message.LindaMessage.insert (q)
 		return self.createTransactionResponse (msg)
 
 	def method_out (self, t):
